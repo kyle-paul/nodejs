@@ -18,12 +18,18 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'rescources/views'))
 
 app.get('/home', (req, res) => {
-    res.render('home');
+  console.log(req.query.q);
+  res.render('home');
 });
 
 app.get('/books', (req, res) => {
   res.render('books');
 });
+
+app.get('/search', (req, res) => {
+  console.log(req.query);
+  res.render('search');
+})
 
 app.listen(port, () => {
   console.log('Example app listening on port ${port}')
