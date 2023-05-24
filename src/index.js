@@ -5,8 +5,14 @@ const exphbs = require('express-handlebars').engine
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+const route = require('./routes/');
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({
+  extende: true
+}));
+
+// XMLHttpRequest, fetch, axios 
 // HTTP logger
 app.use(morgan('combined'));
 
@@ -17,19 +23,8 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'rescources/views'))
 
-app.get('/home', (req, res) => {
-  console.log(req.query.q);
-  res.render('home');
-});
-
-app.get('/books', (req, res) => {
-  res.render('books');
-});
-
-app.get('/search', (req, res) => {
-  console.log(req.query);
-  res.render('search');
-})
+// Routes init
+route(app);
 
 app.listen(port, () => {
   console.log('Example app listening on port ${port}')
