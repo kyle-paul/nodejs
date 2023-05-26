@@ -1,4 +1,4 @@
-// create pages for books route
+// create pages for site route
 const express = require('express');
 const router = express.Router();
 // import the function handler defined in Controller
