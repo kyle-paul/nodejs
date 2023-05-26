@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "beautiful": "lint-staged",
     "start": "nodemon --inspect src/index.js",
     "watch": "node-sass --watch src/rescources/scss/ --output src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,12 +22,18 @@
     "url": "https://github.com/kyle-paul/nodejs/issues"
   },
   "homepage": "https://github.com/kyle-paul/nodejs#readme",
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --write"
+  },
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7"
   },
   "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
     "morgan": "^1.10.0",
-    "node-sass": "^9.0.0"
+    "node-sass": "^9.0.0",
+    "prettier": "^2.8.8"
   }
 }
