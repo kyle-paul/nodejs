@@ -1,0 +1,20 @@
+{{!-- <h1>{{models}}</h1> --}}
+{{!-- this  = document --}}
+<div class="mt-4">
+    <div class="row">
+
+        {{#each models}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card card-model-item">
+                <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                    <a href="#" class="btn btn-primary">View now</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        
+    </div>
+</div>

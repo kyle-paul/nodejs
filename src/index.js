@@ -29,7 +29,7 @@ app.engine(
   }),
 );
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'rescources/views'));
+app.set('views', path.join(__dirname, 'rescources', 'views'));
 
 // Routes init -> access to function route
 route(app);

@@ -6,3 +6,7 @@
 h1 {
   color: #a81176;
   font-family: 'Courier New', Courier, monospace; }
+
+.card-model-item{
+    margin-top: 15px;
+}
