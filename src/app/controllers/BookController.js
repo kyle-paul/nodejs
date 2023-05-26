@@ -1,11 +1,10 @@
 class BookController {
-    // [GET] /news
-    index(req,res){
+    // [GET] /books
+    main_page(req, res){
         res.render('books');
     }
-
-    // [GET] /news/:slugs
-    show_details(req, res){
+    // [GET] /books/certifications
+    certifications(req, res){
         res.render('microsoft_cert');
     }
 }
