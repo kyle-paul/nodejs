@@ -8,12 +8,28 @@ class MLController {
         model.findOne({ slug: req.params.slug })
             .then((models) => {
                 res.render('mlcontent/show', {
-                    models : MongooseToObjet(models)
+                    models: MongooseToObjet(models)
                 });
             })
             .catch(next);
     }
-  }
-  
-  module.exports = new MLController();
-   
+
+    // [GET] /machine_learning/create_content
+    create_content(req, res, next) {
+        res.render('mlcontent/create_content');
+    }
+
+    // [POST] /machine_learning/store_content
+    store_content(req, res, next) {
+        const formData = req.body;
+        formData.image = `https://img.youtube.com/vi/${req.body.videoid}/0.jpg`;
+        const my_model = new model(formData);
+        my_model.save()
+            .then(() => res.redirect('/'))
+            .catch(error => {
+
+            });
+    }
+}
+
+module.exports = new MLController();
