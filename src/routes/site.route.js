@@ -4,6 +4,6 @@ const router = express.Router();
 // import the function handler defined in Controller
 const siteController = require('../app/controllers/SiteController');
 
-router.use('/search', siteController.search);
-router.use('/', siteController.home);
+router.get('/search', siteController.search);
+router.get('/', siteController.home);
 module.exports = router;
