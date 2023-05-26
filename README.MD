@@ -1,5 +1,4 @@
-#
-Build a website with nodejs and expressjs
+# Build a website with nodejs and expressjs
 
 ## Code Structure
 .
