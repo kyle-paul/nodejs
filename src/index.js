@@ -18,17 +18,17 @@ app.use(
 app.use(morgan('combined'));
 
 // Template engine - configure the path for express-handlebars
-app.engine(
+    app.engine(
   'hbs',
-  exphbs({
+    exphbs({
     extname: '.hbs',
-  }),
+    }),
 );
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'rescources/views'));
 
 // Routes init -> access to function route
-route(app);
+  route(app);
 
 // listen on port
 app.listen(port, () => {
