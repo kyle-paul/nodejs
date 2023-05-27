@@ -28,11 +28,6 @@ class MLController {
             .then(() => res.redirect('/'))
             .catch(error => { });
     }
-
-    // [GET] /machine_learning/edit
-    edit(req, res, next) {
-        res.render('mlcontent/edit');
-    }
 }
 
 module.exports = new MLController();

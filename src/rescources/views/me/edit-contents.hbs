@@ -1,0 +1,32 @@
+<div class="mt-4">
+    <h3>Create new content</h3>
+    <form class="mt-4" method="POST", action="/me/{{models._id}}?_method=PUT">
+
+        <div class="form-group">
+            <label for="name">Content Title</label>
+            <input type="text" class="form-control" value="{{models.name}}" id="name" name="name" aria-describedby="emailHelp"
+                placeholder="Enter description">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Content Description</label>
+            <textarea type="text" class="form-control" id="description" name="description" aria-describedby="emailHelp"
+                placeholder="Enter description">{{models.description}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="videoid">Video ID</label>
+            <input type="text" class="form-control" value="{{models.videoid}}" id="videoid" name="videoid" aria-describedby="emailHelp"
+                placeholder="Enter description">
+        </div>
+
+        <div class="form-group">
+            <label for="level">Content Level</label>
+            <input type="text" class="form-control" value="{{models.level}}" id="level" name="level" aria-describedby="emailHelp"
+                placeholder="Enter description">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Edit this content now</button>
+
+    </form>
+</div>

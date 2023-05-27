@@ -6,7 +6,5 @@ const MLController = require('../app/controllers/MLController');
 
 router.get('/create_content', MLController.create_content);
 router.post('/store_content', MLController.store_content);
-router.post('/:id/edit', MLController.edit);
-
 router.get('/:slug', MLController.content);
 module.exports = router;

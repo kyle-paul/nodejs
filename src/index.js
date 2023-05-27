@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const route = require('./routes/');
 const db = require('./config/db')
+const methodOverride = require('method-override')
 
 // connect to the database
 db.connect();
@@ -16,7 +17,10 @@ app.use(
   express.urlencoded({
     extende: true,
   }),
-);
+);  
+
+// configure for method post
+app.use(methodOverride('_method'));
 
 // HTTP logger for morgan
 app.use(morgan('combined'));

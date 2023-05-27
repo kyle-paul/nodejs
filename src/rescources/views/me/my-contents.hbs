@@ -1,31 +1,87 @@
 <div class="mt-4">
-    {{!-- title --}}
-    <h3>My Contents</h3>
+  {{!-- title --}}
+  <h3>My Contents</h3>
 
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Content Title</th>
-                <th scope="col">Level</th>
-                <th scope="col">Content ID</th>
-            </tr>
-        </thead>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Content Title</th>
+        <th scope="col">Level</th>
+        <th scope="col">Content ID</th>
+        <th scope="col">Functions</th>
+      </tr>
+    </thead>
 
-        <tbody>
-            {{#each models}}
-            <tr>
-                <th scope="row">{{sum @index 1}}</th>
-                <td>{{this.name}}</td>
-                <td>{{this.level}}</td> 
-                <td>{{this.videoid}}</td>
-                <td>
-                    <a href="/me/{{this._id}}/edit" class="btn btn-link">Modify</a>
-                    <a href="/me/{{this._id}}/delete" class="btn btn-link">Delete</a>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
+    <tbody>
+      {{#each models}}
+      <tr>
+        <th scope="row">{{sum @index 1}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.level}}</td>
+        <td>{{this.videoid}}</td>
+        <td>
+          <a type="button" class="btn btn-primary" href="/me/{{this._id}}/edit-contents" class="btn btn-link">Modify</a>
+          <a type="button" class="btn btn-dark" data-toggle="modal" data-target="#delete-contents"
+            data-id="{{this._id}}" href="#">Delete</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
 </div>
+
+{{!-- /me/{{this._id}}/delete-contents --}}
+
+{{!-- Confirm delete action --}}
+<!-- Modal -->
+<div class="modal fade" id="delete-contents" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      {{!-- header --}}
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{!-- body --}}
+      <div class="modal-body">
+        Are you sure to delete?
+      </div>
+      {{!-- footer --}}
+      <div class="modal-footer">
+        <button id="btn-confirm-delete-content" type="button" class="btn btn-danger">Delete now</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- hidden content delete form  --}}
+<form name="hidden-content-delete-form" method="POST", action="/me/{{models._id}}?_method=DELETE">
+
+{{!-- JavaScript --}}
+{{!-- Take the ID of one in database when hit delete --}}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var contentID;
+    var hiddenContentDeleteForm = document.forms['hidden-content-delete-form'];
+    var btnConfirmDeleteContent = document.getElementById('btn-confirm-delete-content');
+
+    // when dialog confirm is clicked | get access to the ID of content
+    $ ('#delete-contents').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      contentID = button.data('id');
+    });
+
+    // get the dom of btn-confirm-delete-content
+    btnConfirmDeleteContent.onclick = function () {
+      hiddenContentDeleteForm.action = '/me/' + contentID + '?_method=DELETE';
+      hiddenContentDeleteForm.submit();
+    }
+  });
+</script>
