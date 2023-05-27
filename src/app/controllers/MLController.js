@@ -26,9 +26,12 @@ class MLController {
         const my_model = new model(formData);
         my_model.save()
             .then(() => res.redirect('/'))
-            .catch(error => {
+            .catch(error => { });
+    }
 
-            });
+    // [GET] /machine_learning/edit
+    edit(req, res, next) {
+        res.render('mlcontent/edit');
     }
 }
 

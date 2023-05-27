@@ -26,6 +26,9 @@ app.engine(
   'hbs',
   exphbs({
     extname: '.hbs',
+    helpers: {
+      sum: (a,b) => a + b,
+    }
   }),
 );
 app.set('view engine', 'hbs');
@@ -36,5 +39,5 @@ route(app);
 
 // listen on port
 app.listen(port, () => {
-  console.log('Example app listening on port ${port}');
+  console.log('App listening on port ${port}');
 });

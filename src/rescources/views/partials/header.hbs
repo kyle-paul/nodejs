@@ -1,35 +1,58 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">kyle Paul</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/machine_learning/create_content">create content</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+  {{!-- formatting left and right boundary --}}
+  <div class="container">
+    {{!-- logo brand --}}
+
+    <a class="navbar-brand" href="/">kyle Paul</a>
+    {{!-- button --}}
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    {{!-- submenu --}}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+
+        {{!-- Dropdown menu for content functions --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Taskbar
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/">All content</a>
+            <a class="dropdown-item" href="/machine_learning/create_content">Create Content</a>
+            <a class="dropdown-item" href="/me/stored/my_contents">My content</a>
+            <a class="dropdown-item" href="/me/stored/my_tutorials">My tutorials</a>
+            <a class="dropdown-item" href="/me/stored/my_news">My news</a>
+            <a class="dropdown-item" href="/">Delete Content</a>
+          </div>
+        </li>
+
+        {{!-- Dropdown menu for user account --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="https://media.licdn.com/dms/image/D4E03AQEBnqC4sN5cbw/profile-displayphoto-shrink_800_800/0/1674820007080?e=1690416000&v=beta&t=jT5RDp0AkdYYlIxarNoQPXGeLtdNuc67qPwcsFPhwWo" alt="" class="user-avatar">
+    
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/">Your profile</a>
+            <a class="dropdown-item" href="/">Your Achivements</a>
+            <a class="dropdown-item" href="/">Setting</a>
+          </div>
+        </li>
+
+      </ul>
+      {{!-- search bar --}}
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+
+    </div>
   </div>
 </nav>

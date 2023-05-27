@@ -1,0 +1,31 @@
+<div class="mt-4">
+    {{!-- title --}}
+    <h3>My Contents</h3>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Content Title</th>
+                <th scope="col">Level</th>
+                <th scope="col">Content ID</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each models}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td> 
+                <td>{{this.videoid}}</td>
+                <td>
+                    <a href="/me/{{this._id}}/edit" class="btn btn-link">Modify</a>
+                    <a href="/me/{{this._id}}/delete" class="btn btn-link">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+</div>
