@@ -43,9 +43,29 @@ class MeController {
             .catch(next);
     }
 
-    // restore
+    // FindDeleted
     recycle_bin(req, res, next) {
-        res.render('me/recycle-bin')
+        model.findDeleted({})
+            .then((models) => 
+                res.render('me/recycle-bin', {
+                    models : MultipleMongooseToObject(models),
+                }),
+            )
+            .catch(next)
+    }
+
+    // [PATCH]/me/:id/restore_contents
+    restore_contents(req, res, next) {
+        model.restore({_id: req.params.id}) 
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+
+    // [DELETE] /me/:id/force_delete_contents
+    force_delete_contents(req, res, next) {
+        model.deleteOne({_id: req.params.id}) 
+            .then(() => res.redirect('back'))
+            .catch(next);
     }
 }
 

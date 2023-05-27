@@ -21,7 +21,7 @@
         <td>{{this.level}}</td>
         <td>{{this.videoid}}</td>
         <td>
-          <a type="button" class="btn btn-primary" href="/me/{{this._id}}/edit-contents" class="btn btn-link">Restore</a>
+          <a type="button" class="btn btn-primary btn-restore" data-id="{{this._id}}" href="">Restore</a>
           <a type="button" class="btn btn-dark" data-toggle="modal" data-target="#delete-contents"
             data-id="{{this._id}}" href="#">Force delete</a>
         </td>
@@ -56,11 +56,11 @@
       </div>
       {{!-- body --}}
       <div class="modal-body">
-        Are you sure to delete?
+        Are you sure to delete this content forever?
       </div>
       {{!-- footer --}}
       <div class="modal-footer">
-        <button id="btn-confirm-delete-content" type="button" class="btn btn-danger">Delete now</button>
+        <button id="btn-confirm-delete-content" type="button" class="btn btn-danger">Delete forever now</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -69,15 +69,20 @@
 
 
 {{!-- hidden content delete form  --}}
-<form name="hidden-content-delete-form" method="POST", action="/me/{{models._id}}?_method=DELETE">
+<form name="hidden-content-delete-form" method="POST">
+{{!-- hidden form for restoring content --}}
+<form name="hidden-content-restore-form" method="POST">
 
 {{!-- JavaScript --}}
 {{!-- Take the ID of one in database when hit delete --}}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // 1. Force delete
     var contentID;
     var hiddenContentDeleteForm = document.forms['hidden-content-delete-form'];
+    var hiddenContentRestoreForm = document.forms['hidden-content-restore-form'];
     var btnConfirmDeleteContent = document.getElementById('btn-confirm-delete-content');
+    var btnRestore = $('.btn-restore');
 
     // when dialog confirm is clicked | get access to the ID of content
     $ ('#delete-contents').on('show.bs.modal', function (event) {
@@ -87,8 +92,16 @@
 
     // get the dom of btn-confirm-delete-content
     btnConfirmDeleteContent.onclick = function () {
-      hiddenContentDeleteForm.action = '/me/' + contentID + '?_method=DELETE';
+      hiddenContentDeleteForm.action = '/me/' + contentID + '?/force_method=DELETE';
       hiddenContentDeleteForm.submit();
     }
+
+    // 2. Restore 
+    btnRestore.click(function (e) {
+        e.preventDefault();
+        var contentIDrestore = $(this).data('id');
+        hiddenContentRestoreForm.action = '/me/' + contentIDrestore + '/restore?_method=PATCH';
+        hiddenContentRestoreForm.submit();
+    })
   });
 </script>
