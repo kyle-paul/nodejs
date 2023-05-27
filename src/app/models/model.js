@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 // automatical slug generator
 const slug = require('mongoose-slug-generator');
-mongoose.plugin(slug);
+// soft delete with mongoose
+const mongoose_delete = require('mongoose-delete');
 
 const model = new Schema({
     name: { type : String, required: true},
@@ -15,6 +16,13 @@ const model = new Schema({
     slug: { type: String, slug: 'name', uniqe: true},
 }, { 
     timestamps: true,
+});
+
+// add plugin
+mongoose.plugin(slug);
+model.plugin(mongoose_delete, { 
+    overrideMethods: 'all',
+    deletedAt : true 
 });
 
 module.exports = mongoose.model('model', model);

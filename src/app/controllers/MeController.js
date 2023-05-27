@@ -38,9 +38,14 @@ class MeController {
 
     // [DELETE] /me/:id/delete_contents
     delete_contents(req, res, next) {
-        model.deleteOne({_id: req.params.id}) 
+        model.delete({_id: req.params.id}) 
             .then(() => res.redirect('back'))
             .catch(next);
+    }
+
+    // restore
+    recycle_bin(req, res, next) {
+        res.render('me/recycle-bin')
     }
 }
 

@@ -16,7 +16,7 @@ class MLController {
 
     // [GET] /machine_learning/create_content
     create_content(req, res, next) {
-        res.render('mlcontent/create_content');
+        res.render('mlcontent/create-content');
     }
 
     // [POST] /machine_learning/store_content
