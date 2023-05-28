@@ -1,11 +1,33 @@
-<div class="mt-4">
+<form class="mt-4">
   {{!-- title --}}
   <h3>My Contents</h3>
 
+  {{!-- choose all contents --}}
+  <div class="mt-4 d-flex align-items-center">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="checkbox-select-all">
+      <label class="form-check-label" for="checkbox-select-all">
+        Choose all contents
+      </label>
+    </div>
+
+    {{!-- Select content you want --}}
+    <select class="custom-select checkbox-select-content">
+      <option selected>Choose action</option>
+      <option value="1">Delete</option>
+      <option value="2">Modify</option>
+    </select>
+
+    {{!-- Apply button --}}
+    <button class="btn btn-primary btn-small btn-apply disabled">Apply now</button>
+  </div>
+
+
+
   <table class="table mt-4">
     <thead>
-      <tr>
-        <th scope="col">#</th>
+      <tr >
+        <th scope="col" colspan="2"></th>
         <th scope="col">Content Title</th>
         <th scope="col">Level</th>
         <th scope="col">Content ID</th>
@@ -16,6 +38,11 @@
     <tbody>
       {{#each models}}
       <tr>
+        {{!-- check box for each elemet --}}
+        <th>
+          <div class="form-check"><input class="form-check-input" type="checkbox" value="{{this._id}}" id="checkbox-select-each" name="courseIDs[]"></div>
+        </th>
+        {{!-- data of each element --}}
         <th scope="row">{{sum @index 1}}</th>
         <td>{{this.name}}</td>
         <td>{{this.level}}</td>
@@ -26,18 +53,19 @@
             data-id="{{this._id}}" href="#">Delete</a>
         </td>
       </tr>
+      {{!-- when there is nothing left --}}
       {{else}}
       <tr>
         <td colspan="5" class="text-center">
-           You have not published any content
-           <a href="/machine_learning/create_content">Publish your content now</a>
+          You have not published any content
+          <a href="/machine_learning/create_content">Publish your content now</a>
         </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
 
-</div>
+</form>
 
 {{!-- /me/{{this._id}}/delete-contents --}}
 
@@ -68,27 +96,55 @@
 </div>
 
 
-{{!-- hidden content delete form  --}}
-<form name="hidden-content-delete-form" method="POST", action="/me/{{models._id}}?_method=DELETE">
+{{!-- hidden content delete form --}}
+<form name="hidden-content-delete-form" method="POST" , action="/me/{{models._id}}?_method=DELETE">
 
-{{!-- JavaScript --}}
-{{!-- Take the ID of one in database when hit delete --}}
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var contentID;
-    var hiddenContentDeleteForm = document.forms['hidden-content-delete-form'];
-    var btnConfirmDeleteContent = document.getElementById('btn-confirm-delete-content');
+  {{!-- JavaScript --}}
+  {{!-- Take the ID of one in database when hit delete --}}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var contentID;
+      var hiddenContentDeleteForm = document.forms['hidden-content-delete-form'];
+      var btnConfirmDeleteContent = document.getElementById('btn-confirm-delete-content');
+      var checkboxSelectAll = $("#checkbox-select-all");
+      var checkboxSelectItem = $('input[name="courseIDs[]"]');
+      var buttonApply = $('.btn-apply')
 
-    // when dialog confirm is clicked | get access to the ID of content
-    $ ('#delete-contents').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      contentID = button.data('id');
+      // when dialog confirm is clicked | get access to the ID of content
+      $('#delete-contents').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        contentID = button.data('id');
+      });
+
+      // get the dom of btn-confirm-delete-content
+      btnConfirmDeleteContent.onclick = function () {
+        hiddenContentDeleteForm.action = '/me/' + contentID + '?_method=DELETE';
+        hiddenContentDeleteForm.submit();
+      }
+
+      // Checkbox all selected or deselected
+      checkboxSelectAll.change(function () {
+        var isSelectedAll = $(this).prop('checked');
+        checkboxSelectItem.prop('checked', isSelectedAll);
+        // activate button
+        if (isSelectedAll) {
+          buttonApply.removeClass('disabled');
+        } else {
+          buttonApply.addClass('disabled');
+        }
+      });
+
+      // Checkbox item selected or deslected
+      checkboxSelectItem.change(function () { 
+        var isSelectedAll = checkboxSelectItem.length === $('input[name="courseIDs[]"]:checked').length;
+        checkboxSelectAll.prop('checked', isSelectedAll);
+        // activate button
+        var checkedCount = $('input[name="courseIDs[]"]:checked').length;
+        if (checkedCount) {
+          buttonApply.removeClass('disabled');
+        } else {
+          buttonApply.addClass('disabled');
+        }
+      });
     });
-
-    // get the dom of btn-confirm-delete-content
-    btnConfirmDeleteContent.onclick = function () {
-      hiddenContentDeleteForm.action = '/me/' + contentID + '?_method=DELETE';
-      hiddenContentDeleteForm.submit();
-    }
-  });
-</script>
+  </script>
