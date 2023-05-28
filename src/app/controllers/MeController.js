@@ -31,7 +31,7 @@ class MeController {
     update_contents(req, res, next) {
         model.updateOne({_id: req.params.id}, req.body)
             .then(models => {
-                 res.redirect(('stored/my_contents'))
+                 res.redirect(('stored/my-contents'))
             })
             .catch(next)
     }

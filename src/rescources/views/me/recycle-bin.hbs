@@ -21,7 +21,7 @@
         <td>{{this.level}}</td>
         <td>{{this.videoid}}</td>
         <td>
-          <a type="button" class="btn btn-primary btn-restore" data-id="{{this._id}}" href="">Restore</a>
+          <a type="button" class="btn btn-primary btn-restore" href="">Restore</a>
           <a type="button" class="btn btn-dark" data-toggle="modal" data-target="#delete-contents"
             data-id="{{this._id}}" href="#">Force delete</a>
         </td>
@@ -69,9 +69,9 @@
 
 
 {{!-- hidden content delete form  --}}
-<form name="hidden-content-delete-form" method="POST">
+<form name="hidden-content-delete-form" method="POST", action="/me/{{models._id}}/force?_method=DELETE">
 {{!-- hidden form for restoring content --}}
-<form name="hidden-content-restore-form" method="POST">
+<form name="hidden-content-restore-form" method="POST", action="/me/{{models._id}}/restore?_method=PATCH">
 
 {{!-- JavaScript --}}
 {{!-- Take the ID of one in database when hit delete --}}
@@ -92,7 +92,7 @@
 
     // get the dom of btn-confirm-delete-content
     btnConfirmDeleteContent.onclick = function () {
-      hiddenContentDeleteForm.action = '/me/' + contentID + '?/force_method=DELETE';
+      hiddenContentDeleteForm.action = '/me/' + contentID + '/force?_method=DELETE';
       hiddenContentDeleteForm.submit();
     }
 
@@ -100,8 +100,10 @@
     btnRestore.click(function (e) {
         e.preventDefault();
         var contentIDrestore = $(this).data('id');
-        hiddenContentRestoreForm.action = '/me/' + contentIDrestore + '/restore?_method=PATCH';
+        console.log(contentIDrestore);
+        hiddenContentRestoreForm.action = '/me/' + contentID + '/restore?_method=PATCH';
         hiddenContentRestoreForm.submit();
-    })
+    });
   });
 </script>
+

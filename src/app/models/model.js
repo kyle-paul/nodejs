@@ -22,7 +22,7 @@ const model = new Schema({
 mongoose.plugin(slug);
 model.plugin(mongoose_delete, { 
     overrideMethods: 'all',
-    deletedAt : true 
+    deletedAt : true,
 });
 
 module.exports = mongoose.model('model', model);
